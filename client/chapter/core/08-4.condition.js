@@ -41,7 +41,7 @@ console.log( undefined ?? WIDTH );
 console.log( boolean || WIDTH );
 console.log( boolean ?? WIDTH ); //정의된 값이 나온다~ 
 
-console.log( '' || WIDTH );
+console.log( '' || WIDTH ); //'' typeof '' =>string
 console.log( '' ?? WIDTH ); 
 
 
