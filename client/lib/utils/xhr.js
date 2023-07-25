@@ -60,7 +60,20 @@
 
 
 /* callback */
-function xhr(method,url,onSuccess,onFail,body,headers){
+function xhr(options){
+
+  // const {method, url, onSuccess, onFail, body, headers} = options; //구조분해할당. rename 과 기본값 설정이 가능. 아래처럼. 
+  const {
+    method = 'GET', 
+    url = '', 
+    onSuccess = null, 
+    onFail = null, 
+    body = null, 
+    headers = {
+      'Content-Type':'application.json',
+      'Access-Control-Allow-Origin':'*'
+    }
+  } = options;
   const xhr = new XMLHttpRequest();
   xhr.open(method,url)
   
@@ -87,21 +100,14 @@ function xhr(method,url,onSuccess,onFail,body,headers){
 }
 
 // xhr('GET','https://jsonplaceholder.typicode.com/users')
-xhr('POST','https://jsonplaceholder.typicode.com/users', 
-(result)=>{
-  console.log(result);
-},
-(err)=>{
-  console.log(err);
-},
-{
-  name:'tiger'
-},
-{
-  'Content-Type':'application/json',
-  'Access-Control-Allow-Origin':'*'
-}
-);
+xhr({ //구조분해할당 기본값 설정으로 지워진 options
+  url:'https://jsonplaceholder.typicode.com/users',
+  onSuccess:()=>{},
+  onFail:()=>{},
+  body:{
+    name:'tiger'
+  }
+});
 
 
 // 유저랜더링(data)
