@@ -1,6 +1,6 @@
 
 
-import { attr, disableElement, enableElement, diceAnimation, getNodes, getNode, removeClass, insertLast, endScroll, clearContents } from "./lib/index.js";
+import { attr, disableElement, enableElement, diceAnimation, getNodes, getNode, removeClass, insertLast, endScroll, clearContents,memo } from "./lib/index.js";
 
 
 // [phase-1]주사위 굴리기
@@ -29,6 +29,9 @@ import { attr, disableElement, enableElement, diceAnimation, getNodes, getNode, 
 const [startButton,recordButton,resetButton] = getNodes('.buttonGroup > button');
 const recordListWrapper = getNode('.recordListWrapper')
 const tbody = getNode('.recordList tbody')
+memo('@tbody',()=>getNode('.recordList tbody'))//setter
+
+memo('@tbody')//getter. tag를 담았다는 걸 명시하기위해 @붙여서 표시한 것, 없어도 Ok.
 
 // 진짜 쉬운 과제 util function 두개 만들기
 // disableElement(node) O
@@ -62,7 +65,7 @@ function creatItem(value){
 function renderRecordItem() {
   
   // 큐브의 data-dice 값 가져오기
-  const diceValue = +attr('#cube', 'data-dice');
+  const diceValue = +attr(memo('cube'), 'data-dice');
 
 
   insertLast(tbody, creatItem(diceValue));
