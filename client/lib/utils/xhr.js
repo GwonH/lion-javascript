@@ -99,15 +99,46 @@ function xhr(options){
   xhr.send(JSON.stringify(body)); //그냥 body는 {name:'tiger'}객체니까 문자화를 해야하기때문에 이렇게 보냄
 }
 
-// xhr('GET','https://jsonplaceholder.typicode.com/users')
-xhr({ //구조분해할당 기본값 설정으로 지워진 options
-  url:'https://jsonplaceholder.typicode.com/users',
-  onSuccess:()=>{},
-  onFail:()=>{},
-  body:{
-    name:'tiger'
+
+xhr.get = (url,onSuccess,onFail)=>{
+  xhr({
+    method:'POST',
+    url, // url:url 원래 이런식인데 shorted property로 쓴 것.
+    onSuccess,
+    onFail
+  })
+
+}
+
+console.dir(xhr) //object에 method를 정의한 것처럼 들어감. js는 함수도 객체라서 이런 짓거리가 가능하다..
+
+
+
+
+xhr.get(
+  'https://jsonplaceholder.typicode.com/users',
+  (result)=>{
+    console.log(result);
+  },
+  (err)=>{
+    console.log(err);
   }
-});
+)
+// xhr.post()
+// xhr.put()
+// xhr.delete()
 
 
-// 유저랜더링(data)
+
+/**
+ * @param {string} url 서버와 통신할 주소
+ * @param {function} onSuccess 서버와 통신 성공시 실행될 콜백 함수
+ * @param {function} onFail 서버와 통신 실패시 실행될 콜백 함수
+ * @retrun server data
+ */
+
+
+
+// put 통신
+
+
